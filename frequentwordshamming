@@ -1,0 +1,22 @@
+from patterncounthamming import PatternCountHamming
+import numpy as np
+def FrequentWordsHamming(text, k, d):
+    k = int(k)
+    d = int(d)
+    s = ""
+    count = np.zeros(len(text)-k)
+    for i in range (0, len(text)-k):
+        pattern = text[i:i+k]
+        count[i] = PatternCountHamming(text, pattern, d)
+    maxCount = max(count)
+    for i in range (0, len(text)-k):
+        if (count[i] == maxCount):
+            s += text[i:i+k]
+            s+= " "
+    #gets rid of duplicates:
+    return ' '.join(set(s.split()))
+
+with open ("dataset_9_7.txt", "r") as myfile:
+    data=myfile.read()#.replace('\n', '')
+##print data
+print FrequentWordsHamming(data.split('\n')[0], data.split('\n')[1].split(' ')[0],data.split('\n')[1].split(' ')[1])
